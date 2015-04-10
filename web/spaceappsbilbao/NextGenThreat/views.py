@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.template import RequestContext, loader, Context
 from .models import Airburst
 
 # Create your views here.
 def index(request):
-	return HttpResponse("Hello world!")
+	template = loader.get_template('NextGenThreat/index.html')
+	context = Context({'name': 'Stephane'})
+	return HttpResponse(template.render(context))
 def about(request):
 	return HttpResponse("This is the about page")
 def radar(request):
