@@ -6,8 +6,7 @@ from .models import Airburst
 # Create your views here.
 def index(request):
 	return HttpResponse("Hello world!")
-def about(request):
-	return HttpResponse("This is the about page")
+
 def radar(request):
 	latest_airburst_list = Airburst.objects.all()
 	template = loader.get_template('NextGenThreat/radar.html')
@@ -15,3 +14,6 @@ def radar(request):
 		'latest_airburst_list': latest_airburst_list,
 	})
 	return HttpResponse(template.render(context))
+
+def credits(request):
+	return HttpResponse("This is the credits page")
