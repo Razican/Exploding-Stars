@@ -1,0 +1,18 @@
+{% if latest_airburst_list %}
+    <ul>
+    {% for question in latest_airburst_list %}
+        <li>
+        	<a href="/nextgenthreat/{{ airburst.id }}/">
+        	{{ airburst.total_radiated_energy_j }} |
+        	{{ airburst.calculated_total_impact_energy_kt }} |
+        	{{ airburst.latitude_deg }} |
+        	{{ airburst.longitude_deg }} |
+        	{{ airburst.date_time_peak_brightness_ut }} |
+        	{{ airburst.altitude_km }} |
+        	</a>
+    	</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No airburst are available.</p>
+{% endif %}

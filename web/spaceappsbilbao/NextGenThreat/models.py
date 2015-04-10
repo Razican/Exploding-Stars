@@ -8,3 +8,6 @@ class Airburst(models.Model):
 	longitude_deg = models.CharField(max_length=200)
 	date_time_peak_brightness_ut = models.CharField(max_length=200)
 	altitude_km = models.DecimalField(max_digits=15, decimal_places=2)
+	
+	def __str__(self):
+		return "Total radiated energy " + str(self.total_radiated_energy_j)
