@@ -6,8 +6,7 @@ from django.template import RequestContext, loader, Context
 from .models import Airburst
 
 def index(request):
-	context = {'name': 'Stephane'}
-	return render(request, 'NextGenThreat/index.html', context)
+	return render(request, 'NextGenThreat/index.html', {})
 
 def radar(request):
 	latest_airburst_list = Airburst.objects.all()
