@@ -1,51 +1,103 @@
 {% extends "NextGenThreat/skeleton.html" %}
+{% load staticfiles %}
 
-{% block top_js %}
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false" charset="UTF-8"></script>
+{% block header_data %}
+	<link rel="stylesheet" href="{% static 'NextGenThreat/css/bootstrap-datetimepicker.min.css' %}">
+
 	<script>
-	// First, create an object containing information about airbusts.
-	var airbursts = [];
+	document.addEventListener("DOMContentLoaded", function(event) {
 
-	{% for airburst in latest_airburst_list %}
-	airbursts.push({
-		center: new google.maps.LatLng({{ airburst.latitude }}, {{ airburst.longitude }}),
-		impact_energy: {{ airburst.impact_energy }}
-	});
-	{% endfor %}
+		// First, create an object containing information about airbusts.
+		var airbursts = [];
 
-	var airbustCircle;
+		{% for airburst in latest_airburst_list %}
+		airbursts.push({
+			center: new google.maps.LatLng({{ airburst.latitude }}, {{ airburst.longitude }}),
+			impact_energy: {{ airburst.impact_energy }}
+		});
+		{% endfor %}
 
-	function initialize() {
-		// Create the map.
-		var mapOptions = {
-			zoom: 4,
-			center: new google.maps.LatLng(37.09024, -95.712891),
-			mapTypeId: google.maps.MapTypeId.TERRAIN
-		};
+		var airbustCircle;
 
-		var map = new google.maps.Map(document.getElementById('map-canvas'),
-		  mapOptions);
-
-		// Construct the circle for each airbust.
-		// Note: We scale the area of the circle based on the energy.
-		for (var burst in airbursts) {
-			var circleOptions = {
-				strokeOpacity: 0.0,
-				fillColor: '#FF0000',
-				fillOpacity: 0.5,
-				map: map,
-				center: airbursts[burst].center,
-				radius: Math.pow(airbursts[burst].impact_energy, 0.2) * 500000
+		function initialize() {
+			// Create the map.
+			var mapOptions = {
+				zoom: 4,
+				center: new google.maps.LatLng(37.09024, -95.712891),
+				mapTypeId: google.maps.MapTypeId.TERRAIN
 			};
 
-			airbustCircle = new google.maps.Circle(circleOptions);
-		}
-	}
+			var map = new google.maps.Map(document.getElementById('map-canvas'),
+			  mapOptions);
 
-	google.maps.event.addDomListener(window, 'load', initialize);
+			// Construct the circle for each airbust.
+			// Note: We scale the area of the circle based on the energy.
+			for (var burst in airbursts) {
+				var circleOptions = {
+					strokeOpacity: 0.0,
+					fillColor: '#FF0000',
+					fillOpacity: 0.5,
+					map: map,
+					center: airbursts[burst].center,
+					radius: Math.pow(airbursts[burst].impact_energy, 0.2) * 500000
+				};
+
+				airbustCircle = new google.maps.Circle(circleOptions);
+			}
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+		$('#filter_start').datetimepicker();
+		$('#filter_end').datetimepicker();
+
+		$('#filter_submit').click(function() {
+			console.log($('#filter_start').data('DateTimePicker').date());
+			console.log($('#filter_end').data('DateTimePicker').date());
+		});
+	});
 	</script>
 {% endblock %}
 
 {% block content %}
+	<div class="container">
+		<div class="row filter">
+			<div class="col-md-2"><span class="text">Filter from</span></div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<div class="input-group date" id="filter_start">
+						<input type="text" class="form-control">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"><span class="text">to</span></div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<div class="input-group date" id="filter_end">
+						<input type='text' class="form-control">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-1">
+				<div class="form-group">
+					<div class="input-group">
+						<input id="filter_submit" type="button" class="form-control" value="Filter">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="map-canvas"></div>
+{% endblock %}
+
+{% block footer_data %}
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false" charset="UTF-8"></script>
+	<script src="{% static 'NextGenThreat/js/moment.min.js' %}" charset="UTF-8"></script>
+	<script src="{% static 'NextGenThreat/js/bootstrap-datetimepicker.min.js' %}" charset="UTF-8"></script>
 {% endblock %}
