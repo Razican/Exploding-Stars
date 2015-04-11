@@ -13,6 +13,8 @@
 
 		<link rel="stylesheet" href="{% static 'NextGenThreat/css/bootstrap.min.css' %}">
 		<link href="{% static 'NextGenThreat/css/one-page-wonder.css' %}" rel="stylesheet">
+
+		{% block top_js %}{% endblock %}
 	</head>
 	<body>
 		<!-- Navigation -->
@@ -70,7 +72,6 @@
 		</div>
 		<!-- /.container -->
 
-		{% block js_files %}{% endblock %}
 		<script src="{% static 'NextGenThreat/js/jquery-2.1.3.min.js' %}" charset="UTF-8"></script>
 		<script src="{% static 'NextGenThreat/js/bootstrap.min.js' %}" charset="UTF-8"></script>
 	</body>

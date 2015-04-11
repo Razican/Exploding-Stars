@@ -1,22 +1,61 @@
 {% extends "NextGenThreat/skeleton.html" %}
 
+{% block top_js %}
+	<style>
+		html, body, #map-canvas {
+			min-height: 500px;
+			margin: 0px;
+			padding: 0px
+		}
+	</style>
+
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false" charset="UTF-8"></script>
+	<script>
+	// First, create an object containing information about airbusts.
+	var airbursts = [];
+
+	{% for airburst in latest_airburst_list %}
+	airbursts.push({
+		center: new google.maps.LatLng(25, 25),
+		impact_energy: {{ airburst.calculated_total_impact_energy_kt }}
+	});
+	{% endfor %}
+
+	var airbustCircle;
+
+	function initialize() {
+		// Create the map.
+		var mapOptions = {
+			zoom: 4,
+			center: new google.maps.LatLng(37.09024, -95.712891),
+			mapTypeId: google.maps.MapTypeId.TERRAIN
+		};
+
+		var map = new google.maps.Map(document.getElementById('map-canvas'),
+		  mapOptions);
+
+		// Construct the circle for each airbust.
+		// Note: We scale the area of the circle based on the energy.
+		for (var burst in airbursts) {
+			var circleOptions = {
+				strokeColor: '#FF0000',
+				strokeOpacity: 0.5,
+				strokeWeight: 2,
+				fillColor: '#FF0000',
+				fillOpacity: 0.5,
+				map: map,
+				center: airbursts[burst].center,
+				radius: Math.sqrt(airbursts[burst].impact_energy) * 100000
+			};
+
+			airbustCircle = new google.maps.Circle(circleOptions);
+		}
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+{% endblock %}
+
 {% block content %}
-	{% if latest_airburst_list %}
-		<ul>
-		{% for airburst in latest_airburst_list %}
-			<li>
-				<a href="/nextgenthreat/{{ airburst.id }}/">
-				{{ airburst.total_radiated_energy_j }} |
-				{{ airburst.calculated_total_impact_energy_kt }} |
-				{{ airburst.latitude_deg }} |
-				{{ airburst.longitude_deg }} |
-				{{ airburst.date_time_peak_brightness_ut }} |
-				{{ airburst.altitude_km }} |
-				</a>
-			</li>
-		{% endfor %}
-		</ul>
-	{% else %}
-		<p>No airburst are available.</p>
-	{% endif %}
+	<div id="map-canvas"></div>
 {% endblock %}
