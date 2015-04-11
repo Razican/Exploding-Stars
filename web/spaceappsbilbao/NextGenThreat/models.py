@@ -1,13 +1,12 @@
 from django.db import models
 
-# Create your models here.
 class Airburst(models.Model):
-	total_radiated_energy_j = models.DecimalField(max_digits=15, decimal_places=2)
-	calculated_total_impact_energy_kt = models.DecimalField(max_digits=15, decimal_places=2)
-	latitude_deg = models.CharField(max_length=200)
-	longitude_deg = models.CharField(max_length=200)
-	date_time_peak_brightness_ut = models.CharField(max_length=200)
-	altitude_km = models.DecimalField(max_digits=15, decimal_places=2)
-	
+	radiated_energy = models.BigIntegerField()
+	impact_energy = models.DecimalField(max_digits=10, decimal_places=3)
+	latitude = models.DecimalField(max_digits=8, decimal_places=5)
+	longitude = models.DecimalField(max_digits=8, decimal_places=5)
+	date = models.DateTimeField()
+	altitude = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
 	def __str__(self):
-		return "Total radiated energy " + str(self.total_radiated_energy_j)
+		return "Total radiated energy " + str(self.radiated_energy)

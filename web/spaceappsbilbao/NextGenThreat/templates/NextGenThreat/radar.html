@@ -1,14 +1,6 @@
 {% extends "NextGenThreat/skeleton.html" %}
 
 {% block top_js %}
-	<style>
-		html, body, #map-canvas {
-			min-height: 500px;
-			margin: 0px;
-			padding: 0px
-		}
-	</style>
-
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false" charset="UTF-8"></script>
 	<script>
 	// First, create an object containing information about airbusts.
@@ -16,8 +8,8 @@
 
 	{% for airburst in latest_airburst_list %}
 	airbursts.push({
-		center: new google.maps.LatLng(25, 25),
-		impact_energy: {{ airburst.calculated_total_impact_energy_kt }}
+		center: new google.maps.LatLng({{ airburst.latitude }}, {{ airburst.longitude }}),
+		impact_energy: {{ airburst.impact_energy }}
 	});
 	{% endfor %}
 
@@ -38,14 +30,12 @@
 		// Note: We scale the area of the circle based on the energy.
 		for (var burst in airbursts) {
 			var circleOptions = {
-				strokeColor: '#FF0000',
-				strokeOpacity: 0.5,
-				strokeWeight: 2,
+				strokeOpacity: 0.0,
 				fillColor: '#FF0000',
 				fillOpacity: 0.5,
 				map: map,
 				center: airbursts[burst].center,
-				radius: Math.sqrt(airbursts[burst].impact_energy) * 100000
+				radius: Math.pow(airbursts[burst].impact_energy, 0.2) * 500000
 			};
 
 			airbustCircle = new google.maps.Circle(circleOptions);

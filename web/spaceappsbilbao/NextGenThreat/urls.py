@@ -6,4 +6,5 @@ urlpatterns = [
 	url(r'^$', views.index, name='index'),
 	url(r'^radar/', views.radar, name='radar'),
 	url(r'^credits/', views.credits, name='credits'),
+	url(r'^api/', views.api, name='api')
 ]

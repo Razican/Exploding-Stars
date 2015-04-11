@@ -6,7 +6,7 @@
 	<div class="featurette" id="about">
 		<img class="featurette-image img-circle img-responsive {% cycle 'pull-right' 'pull-left' %}" src="{% static 'NextGenThreat/img/contributors/'|add:contributor.name|add:'.jpg' %}">
 		<h2 class="featurette-heading">{{contributor.name}} {{contributor.lastname}}</h2>
-		<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+		<p class="lead">{{contributor.description}}</p>
 	</div>
 
 	<hr class="featurette-divider">
