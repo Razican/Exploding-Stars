@@ -16,11 +16,11 @@ def radar(request):
 
 def credits(request):
 	context = {'contributors': [
-			{'name': 'Aitor', 'lastname': 'Brazaola', 'description': 'Aitor Brazaola nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.'},
-			{'name': 'Elena', 'lastname': 'López', 'description': 'Elena López nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.'},
-			{'name': 'Iban', 'lastname': 'Eguia', 'description': 'Iban Eguia nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.'},
-			{'name': 'Eneko', 'lastname': 'Cruz', 'description': 'Eneko Cruz nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.'},
-			{'name': 'Alejandro', 'lastname': 'Pérez', 'description': 'Alejandro Pérez nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.'},
+			{'name': 'Aitor', 'lastname': 'Brazaola', 'description': 'Aitor Brazaola is a student of Computer Engineering. Been a geek and software developer, he has a podcast with Iban Eguia named El Gato de Turing.'},
+			{'name': 'Elena', 'lastname': 'López', 'description': 'Elena is a student at University of Deusto. She is studying Telecom Engineering and is very interested in fields such as Internet security, biomedicine and aeronautics. She is currently working on OpenStratos to send a Raspberry Pi to the stratosphere.'},
+			{'name': 'Iban', 'lastname': 'Eguia', 'description': 'Iban Eguia is a future IT engineer and a total space geek. Translator and contributor at CodeIgniter and core developer at OpenStratos and XG Project. He has a podcast with Aitor Brazaola called El Gato de Turing.'},
+			{'name': 'Eneko', 'lastname': 'Cruz', 'description': 'Eneko Cruz is studying Computer Science at the University of Deusto and Mathematics at the National University of Distance Education (UNED). His main interests are information security, mathematics and computer vision.'},
+			{'name': 'Alejandro', 'lastname': 'Pérez', 'description': 'Alejandro Pérez...'},
 		],
 	}
 	return render(request, 'NextGenThreat/credits.html', context)
